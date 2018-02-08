@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaaSApp", "SaaSApp\SaaSApp.csproj", "{2CB97C0D-4364-4533-98D8-1F31BDC73C8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{14FF060E-5975-43CE-B671-BDCB114DB6CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "script", "script", "{50DF0E8A-B979-4091-8A77-10D0A5A4E87E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,10 @@ Global
 		{2CB97C0D-4364-4533-98D8-1F31BDC73C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CB97C0D-4364-4533-98D8-1F31BDC73C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CB97C0D-4364-4533-98D8-1F31BDC73C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FF060E-5975-43CE-B671-BDCB114DB6CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FF060E-5975-43CE-B671-BDCB114DB6CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FF060E-5975-43CE-B671-BDCB114DB6CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FF060E-5975-43CE-B671-BDCB114DB6CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
