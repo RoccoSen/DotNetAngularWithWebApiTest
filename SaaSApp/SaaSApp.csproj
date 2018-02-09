@@ -292,6 +292,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\Login\app.login.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
   </ItemGroup>
   <ItemGroup>
