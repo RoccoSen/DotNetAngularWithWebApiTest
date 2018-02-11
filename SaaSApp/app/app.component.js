@@ -9,13 +9,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.name = 'World';
-        this.age = " We might be a billion years old but finally figured this shit out";
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<h1>Hello {{name}} hahhahah {{age}}</h1>",
+            template: "<router-outlet> <a routerLink=\"/app_signin\" routerLinkActive=\"active\">Sign In</a>\n                               <a routerLink=\"/app_signout\" routerLinkActive=\"active\">Sign Out</a>\n                               <a routerLink=\"/app_register\" routerLinkActive=\"active\">Register</a>\n                               <a routerLink=\"/app_recover_password\" routerLinkActive=\"active\">Recover Password</a>\n                               <a routerLink=\"/app_404\" routerLinkActive=\"active\">404</a>\n                               <a routerLink=\"/app_504\" routerLinkActive=\"active\">504</a>\n               </router-outlet>'",
         })
     ], AppComponent);
     return AppComponent;

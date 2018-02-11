@@ -3,17 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Login/app.login.component';
+import { SignInComponent } from './general/sign_in/sign_in.component';
+import { SignOutComponent } from './general/sign_out/sign_out.component';
+import { Error404Component } from './general/404/error_404.component';
+import { Error504Component } from './general/504/error_504.component';
+import { RegisterComponent } from './general/register/register.component';
+import { RecoverPasswordComponent } from './general/recover_password/recover_password.component';
 
-export const ROUTES: Routes = [
+import { DashboardComponent } from './application/dashboard/dashboard.component';
+
+export const appRoutes: Routes = [
     { path: '', component: AppComponent },
-    { path: '/login', component: LoginComponent },
+    { path: 'app_signin', component: SignInComponent },
+    { path: 'app_signout', component: SignOutComponent },
+    { path: 'app_register', component: RegisterComponent },
+    { path: 'app_recover_password', component: RecoverPasswordComponent },
+    { path: 'app_404', component: Error404Component },
+    { path: 'app_504', component: Error504Component },
 ];
 
 
 @NgModule({
-    imports: [BrowserModule, RouterModule ],
-    declarations: [ AppComponent ],
+    declarations: [AppComponent, SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, DashboardComponent],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(appRoutes),
+    ],    
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

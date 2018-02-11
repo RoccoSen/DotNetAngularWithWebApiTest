@@ -10,18 +10,32 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
-var app_login_component_1 = require("./Login/app.login.component");
-exports.ROUTES = [
+var sign_in_component_1 = require("./general/sign_in/sign_in.component");
+var sign_out_component_1 = require("./general/sign_out/sign_out.component");
+var error_404_component_1 = require("./general/404/error_404.component");
+var error_504_component_1 = require("./general/504/error_504.component");
+var register_component_1 = require("./general/register/register.component");
+var recover_password_component_1 = require("./general/recover_password/recover_password.component");
+var dashboard_component_1 = require("./application/dashboard/dashboard.component");
+exports.appRoutes = [
     { path: '', component: app_component_1.AppComponent },
-    { path: '/login', component: app_login_component_1.LoginComponent },
+    { path: 'app_signin', component: sign_in_component_1.SignInComponent },
+    { path: 'app_signout', component: sign_out_component_1.SignOutComponent },
+    { path: 'app_register', component: register_component_1.RegisterComponent },
+    { path: 'app_recover_password', component: recover_password_component_1.RecoverPasswordComponent },
+    { path: 'app_404', component: error_404_component_1.Error404Component },
+    { path: 'app_504', component: error_504_component_1.Error504Component },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, router_1.RouterModule],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, sign_in_component_1.SignInComponent, sign_out_component_1.SignOutComponent, error_404_component_1.Error404Component, error_504_component_1.Error504Component, register_component_1.RegisterComponent, recover_password_component_1.RecoverPasswordComponent, dashboard_component_1.DashboardComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                router_1.RouterModule.forRoot(exports.appRoutes),
+            ],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

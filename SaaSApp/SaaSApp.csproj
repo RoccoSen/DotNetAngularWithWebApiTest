@@ -220,6 +220,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ServerRouteConstraint.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -238,23 +239,65 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="app\application\dashboard\dashboard.component.html" />
+    <Content Include="app\general\404\error_404.component.html" />
+    <Content Include="app\general\504\error_504.component.html" />
+    <Content Include="app\general\recover_password\recover_password.component.html" />
+    <Content Include="app\general\register\register.component.html" />
+    <Content Include="app\general\sign_in\sign_in.component.html" />
+    <Content Include="app\general\sign_out\sign_out.component.html" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\custom.min.css" />
+    <Content Include="css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="css\nprogress.css" />
+    <Content Include="css\prettify.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="images\american-express.png" />
+    <Content Include="images\back_disabled.png" />
+    <Content Include="images\back_enabled.png" />
+    <Content Include="images\back_enabled_hover.png" />
+    <Content Include="images\cropper.jpg" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\forward_disabled.png" />
+    <Content Include="images\forward_enabled.png" />
+    <Content Include="images\forward_enabled_hover.png" />
+    <Content Include="images\img.jpg" />
+    <Content Include="images\inbox.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\mastercard.png" />
+    <Content Include="images\media.jpg" />
+    <Content Include="images\paypal.png" />
+    <Content Include="images\picture.jpg" />
+    <Content Include="images\prod-1.jpg" />
+    <Content Include="images\prod-2.jpg" />
+    <Content Include="images\prod-3.jpg" />
+    <Content Include="images\prod-4.jpg" />
+    <Content Include="images\prod-5.jpg" />
+    <Content Include="images\user.png" />
+    <Content Include="images\visa.png" />
+    <Content Include="js\bootstrap-wysiwyg.min.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="js\custom.min.js" />
+    <Content Include="js\datepicker\daterangepicker.js" />
+    <Content Include="js\fastclick.js" />
+    <Content Include="js\jquery.hotkeys.js" />
+    <Content Include="js\moment\moment.min.js" />
+    <Content Include="js\nprogress.js" />
+    <Content Include="js\prettify.min.js" />
     <Content Include="package.json" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
+    <None Include="js\jquery-1.10.2.intellisense.js" />
+    <Content Include="js\jquery-1.10.2.js" />
+    <Content Include="js\jquery-1.10.2.min.js" />
+    <Content Include="js\modernizr-2.6.2.js" />
+    <Content Include="js\respond.js" />
+    <Content Include="js\respond.min.js" />
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
@@ -264,7 +307,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
+    <Content Include="css\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -273,8 +316,8 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\services\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,13 +330,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="js\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\general\404\error_404.component.ts" />
+    <TypeScriptCompile Include="app\general\504\error_504.component.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\Login\app.login.component.ts" />
+    <TypeScriptCompile Include="app\application\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="app\general\recover_password\recover_password.component.ts" />
+    <TypeScriptCompile Include="app\general\register\register.component.ts" />
+    <TypeScriptCompile Include="app\general\sign_in\sign_in.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\general\sign_out\sign_out.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
