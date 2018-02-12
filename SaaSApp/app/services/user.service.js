@@ -17,31 +17,20 @@ var UserService = /** @class */ (function () {
     function UserService(http, authenticationService) {
         this.http = http;
         this.authenticationService = authenticationService;
-    }
-    UserService.prototype.getUsers = function () {
         // add authorization header with jwt token
-        var httpOptions = {
+        this.httpOptions = {
             headers: new http_1.HttpHeaders({
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Bearer ' + this.authenticationService.token
             })
         };
-        this.http.get('/api/account/users')
-            .subscribe(function (data) {
-            console.log('success', data);
-        }, function (error) {
-            console.log('should say unauthorized');
-            console.log('oops', error);
-        });
-        this.http.get('/api/account/users', httpOptions)
-            .subscribe(function (response) {
-            console.log(response);
-        });
+    }
+    UserService.prototype.getUsers = function () {
         // get users from api
-        return this.http.get('/api/account/users', httpOptions)
-            .map(function (response) {
-            console.log(response);
-            return null;
+        return this.http.get('/api/account/users', this.httpOptions)
+            .map(function (data) {
+            console.log(data);
+            return data;
         });
     };
     UserService = __decorate([

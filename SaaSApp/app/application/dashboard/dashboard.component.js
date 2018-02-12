@@ -13,11 +13,20 @@ var core_1 = require("@angular/core");
 var index_1 = require("../../services/index");
 var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(usrSvc) {
+        var _this = this;
         this.usrSvc = usrSvc;
+        this.users = [];
         this.token = (localStorage.getItem('currentUser') !== null) ? JSON.parse(localStorage.getItem('currentUser')).token : null;
         this.userName = (localStorage.getItem('userName') !== null) ? JSON.parse(localStorage.getItem('userName')).userName : null;
-        var users = usrSvc.getUsers();
-        console.log(users);
+        // get users from secure api end point
+        this.usrSvc.getUsers()
+            .subscribe(function (users) {
+            _this.users = users;
+            console.log(_this.users[0].email);
+        }, function (error) {
+            console.log('should say unauthorized');
+            console.log('oops', error);
+        });
     }
     DashboardComponent = __decorate([
         core_1.Component({

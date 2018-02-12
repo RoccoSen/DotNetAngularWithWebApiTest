@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var index_1 = require("./index");
+//Need to finish this(https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors)
 var TokenInterceptor = /** @class */ (function () {
     function TokenInterceptor(auth) {
         this.auth = auth;

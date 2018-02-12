@@ -9,8 +9,8 @@ import { AuthenticationService } from '../../services/index';
 })
 export class SignInComponent implements OnInit {
 
-    username: string = "";
-    password: string = "";
+    username: string = "rakkha@gmail.com";
+    password: string = "ass4me";
 
     loading = false;
     error = '';
@@ -38,22 +38,5 @@ export class SignInComponent implements OnInit {
                     this.loading = false;
                 }
             });
-
-        //const httpOptions = {
-        //    headers: new HttpHeaders({
-        //        'Content-Type': 'application/x-www-form-urlencoded'
-        //    })
-        //};
-
-
-        //let data = "grant_type=password&username=" + this.email + "&password=" + this.password;
-        //this.http.post('token', data, httpOptions).subscribe(
-        //    data => {
-        //        localStorage.setItem('currentUser', JSON.stringify({ token: data.access_token, name: this.email }));
-        //    },
-        //    error => {
-        //        console.log("Error", error);
-        //    }
-        //);  
     }
 }

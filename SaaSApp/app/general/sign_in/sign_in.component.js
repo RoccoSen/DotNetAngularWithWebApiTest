@@ -16,8 +16,8 @@ var SignInComponent = /** @class */ (function () {
     function SignInComponent(router, authenticationService) {
         this.router = router;
         this.authenticationService = authenticationService;
-        this.username = "";
-        this.password = "";
+        this.username = "rakkha@gmail.com";
+        this.password = "ass4me";
         this.loading = false;
         this.error = '';
     }
@@ -40,20 +40,6 @@ var SignInComponent = /** @class */ (function () {
                 _this.loading = false;
             }
         });
-        //const httpOptions = {
-        //    headers: new HttpHeaders({
-        //        'Content-Type': 'application/x-www-form-urlencoded'
-        //    })
-        //};
-        //let data = "grant_type=password&username=" + this.email + "&password=" + this.password;
-        //this.http.post('token', data, httpOptions).subscribe(
-        //    data => {
-        //        localStorage.setItem('currentUser', JSON.stringify({ token: data.access_token, name: this.email }));
-        //    },
-        //    error => {
-        //        console.log("Error", error);
-        //    }
-        //);  
     };
     SignInComponent = __decorate([
         core_1.Component({
