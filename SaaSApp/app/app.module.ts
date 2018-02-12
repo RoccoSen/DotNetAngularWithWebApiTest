@@ -1,6 +1,8 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './general/sign_in/sign_in.component';
@@ -12,6 +14,8 @@ import { RecoverPasswordComponent } from './general/recover_password/recover_pas
 
 import { DashboardComponent } from './application/dashboard/dashboard.component';
 
+import { AuthenticationService, UserService, AuthGuard, TokenInterceptor  } from './services/index';
+
 export const appRoutes: Routes = [
     { path: '', component: AppComponent },
     { path: 'app_signin', component: SignInComponent },
@@ -20,6 +24,8 @@ export const appRoutes: Routes = [
     { path: 'app_recover_password', component: RecoverPasswordComponent },
     { path: 'app_404', component: Error404Component },
     { path: 'app_504', component: Error504Component },
+    { path: 'app_dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: '**', redirectTo: 'www.saasapp.com' }
 ];
 
 
@@ -28,7 +34,10 @@ export const appRoutes: Routes = [
     imports: [
         BrowserModule,
         RouterModule.forRoot(appRoutes),
-    ],    
-    bootstrap:    [ AppComponent ]
+        FormsModule,
+        HttpClientModule,
+    ],
+    providers: [AuthenticationService, AuthGuard, UserService, TokenInterceptor ],
+    bootstrap: [ AppComponent ]
 })
 export class AppModule { }

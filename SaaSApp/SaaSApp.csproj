@@ -316,7 +316,6 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\services\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -341,8 +340,16 @@
     <TypeScriptCompile Include="app\general\recover_password\recover_password.component.ts" />
     <TypeScriptCompile Include="app\general\register\register.component.ts" />
     <TypeScriptCompile Include="app\general\sign_in\sign_in.component.ts" />
+    <TypeScriptCompile Include="app\services\auth.guard.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\general\sign_out\sign_out.component.ts" />
+    <TypeScriptCompile Include="app\model\auth.ts" />
+    <TypeScriptCompile Include="app\model\index.ts" />
+    <TypeScriptCompile Include="app\model\user.ts" />
+    <TypeScriptCompile Include="app\services\authentication.service.ts" />
+    <TypeScriptCompile Include="app\services\index.ts" />
+    <TypeScriptCompile Include="app\services\token_interceptor.ts" />
+    <TypeScriptCompile Include="app\services\user.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
