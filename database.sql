@@ -456,3 +456,49 @@ USE [master]
 GO
 ALTER DATABASE [SaasApp] SET  READ_WRITE 
 GO
+
+
+DROP TABLE dbo.tbl_OrgSubscription
+DROP TABLE dbo.tbl_Subscription
+DROP TABLE dbo.tbl_Organization
+
+CREATE TABLE dbo.tbl_Organization
+(
+	OrgID INT IDENTITY(1,1)
+	,OrgName NVARCHAR(255)
+	,[Address] NVARCHAR(1000)
+	,Phone NVARCHAR(30)
+	,IsActive BIT
+	,StripeCustomerID NVARCHAR(255)
+	,StripeCreditCardID NVARCHAR(255)
+	,CredtCardExpiration DATETIME
+	,PRIMARY KEY(OrgID)
+)
+GO
+
+CREATE TABLE dbo.tbl_Subscription
+(
+	SubscriptionID INT IDENTITY(1,1)
+	,SubscriptionCode NVARCHAR(15)
+	,SubscriptionDescription NVARCHAR(255)
+	,PRIMARY KEY(SubscriptionID)
+)
+GO
+
+CREATE TABLE dbo.tbl_OrgSubscription
+(
+	OrgSubscriptionID INT IDENTITY(1,1)
+	,SubscriptionID INT
+	,OrgID INT
+	,ExpirationDate DATETIME
+	,PRIMARY KEY (OrgSubscriptionID) 
+	,FOREIGN KEY (SubscriptionID) REFERENCES dbo.tbl_Subscription(SubscriptionID)
+	,FOREIGN KEY (OrgID) REFERENCES  dbo.tbl_Organization(OrgID)
+)
+
+
+ INSERT INTO dbo.tbl_Subscription(SubscriptionCode,SubscriptionDescription)
+ VALUES ('TRIAL', 'Trial Period')
+
+
+
