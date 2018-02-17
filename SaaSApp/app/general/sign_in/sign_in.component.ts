@@ -32,6 +32,7 @@ export class SignInComponent implements OnInit {
                 if (result === true) {
                     // login successful
                     this.router.navigate(['/app_dashboard']);
+                    this.loading = false;
                 } else {
                     // login failed
                     this.error = 'Username or password is incorrect';

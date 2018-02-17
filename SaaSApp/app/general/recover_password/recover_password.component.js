@@ -9,7 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var RecoverPasswordComponent = /** @class */ (function () {
     function RecoverPasswordComponent() {
+        this.username = "rakkha@gmail.com";
+        this.loading = false;
+        this.error = '';
     }
+    RecoverPasswordComponent.prototype.recover = function () {
+        this.loading = true;
+    };
     RecoverPasswordComponent = __decorate([
         core_1.Component({
             selector: 'my-app',

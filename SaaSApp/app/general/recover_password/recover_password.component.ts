@@ -6,4 +6,14 @@
 })
 export class RecoverPasswordComponent {
 
+    username: string = "rakkha@gmail.com";
+
+    loading = false;
+    error = '';
+
+    private recover() {
+
+        this.loading = true;
+
+    }
 }

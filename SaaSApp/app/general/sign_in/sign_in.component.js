@@ -33,6 +33,7 @@ var SignInComponent = /** @class */ (function () {
             if (result === true) {
                 // login successful
                 _this.router.navigate(['/app_dashboard']);
+                _this.loading = false;
             }
             else {
                 // login failed
