@@ -460,19 +460,36 @@ GO
 
 DROP TABLE dbo.tbl_OrgSubscription
 DROP TABLE dbo.tbl_Subscription
+DROP TABLE dbo.tbl_UserOrganization
 DROP TABLE dbo.tbl_Organization
+DROP TABLE dbo.tbl_FirstPage
+
+DROP PROC dbo.sp_SignUp
+DROP PROC dbo.sp_OrganizationGet
+DROP PROC dbo.sp_OrganizationUpdate 
+
+CREATE TABLE dbo.tbl_FirstPage
+(
+	PageID INT IDENTITY(1,1)
+	,PageRout NVARCHAR(250)
+	,IsActive BIT DEFAULT(1)
+	,PRIMARY KEY (PageID)
+)
+GO
 
 CREATE TABLE dbo.tbl_Organization
 (
 	OrgID INT IDENTITY(1,1)
 	,OrgName NVARCHAR(255)
-	,[Address] NVARCHAR(1000)
+	,Address NVARCHAR(1000)
 	,Phone NVARCHAR(30)
-	,IsActive BIT
+	,PageID INT
+	,IsActive BIT DEFAULT(1)
 	,StripeCustomerID NVARCHAR(255)
 	,StripeCreditCardID NVARCHAR(255)
 	,CredtCardExpiration DATETIME
 	,PRIMARY KEY(OrgID)
+	,FOREIGN KEY(PageID) REFERENCES dbo.tbl_FirstPage(PageID)
 )
 GO
 
@@ -496,9 +513,122 @@ CREATE TABLE dbo.tbl_OrgSubscription
 	,FOREIGN KEY (OrgID) REFERENCES  dbo.tbl_Organization(OrgID)
 )
 
+CREATE TABLE dbo.tbl_UserOrganization
+(
+	UserOrganizationID BIGINT IDENTITY(1,1)
+	,Id NVARCHAR(128) NOT NULL
+	,OrgID INT NOT NULL
+	,IsActive BIT DEFAULT(1)
+	,PRIMARY KEY(UserOrganizationID)
+	,FOREIGN KEY(Id) REFERENCES dbo.AspNetUsers(Id)
+	,FOREIGN KEY(OrgID) REFERENCES  dbo.tbl_Organization(OrgID)
+)
 
- INSERT INTO dbo.tbl_Subscription(SubscriptionCode,SubscriptionDescription)
- VALUES ('TRIAL', 'Trial Period')
+
+INSERT INTO dbo.tbl_Subscription(SubscriptionCode,SubscriptionDescription)
+VALUES ('TRIAL', 'Trial Period')
+
+INSERT INTO dbo.tbl_FirstPage(PageRout)
+VALUES ('app_dashboard')
+,('app_yourorganization')
+
+GO
+CREATE PROC dbo.sp_SignUp (
+ @Id NVARCHAR(128)
+) 
+AS
+-----------------------------------------------
+----- EXEC dbo.sp_SignUp 'c87b1c81-8f64-47a7-94c4-4064708c94b0'
+-----------------------------------------------
+SET NOCOUNT ON
+BEGIN TRY
+
+	-----------------------
+	-- DECLARE
+	-----------------------
+	DECLARE @PageID INT
+	DECLARE @OrgID INT
+	
+	SET @PageID = (SELECT PageId FROM dbo.tbl_FirstPage WHERE PageRout = 'app_yourorganization')
+	
+	INSERT INTO dbo.tbl_Organization (OrgName,Address,Phone,PageID)
+    VALUES (NULL,NULL,NULL,@PageID)
+
+	SET @OrgID = SCOPE_IDENTITY()
+
+	IF NOT EXISTS(SELECT 1 FROM dbo.tbl_UserOrganization WHERE [Id] = @Id)
+	BEGIN
+		INSERT INTO dbo.tbl_UserOrganization(Id,OrgID)
+		VALUES (@Id,@OrgID)
+	END
+END TRY
+BEGIN CATCH    
+	EXEC utility.sp_LogProcedureCall @ObjectID = @@PROCID;
+	EXEC [utility].[sp_RaiseError]
+END CATCH
+GO
 
 
+CREATE PROC dbo.sp_OrganizationGet (
+	@Id NVARCHAR(128)
+	,@LogMessage NVARCHAR(MAX) = NULL
+) 
+AS
+-----------------------------------------------
+----- EXEC dbo.sp_OrganizationGet 'c87b1c81-8f64-47a7-94c4-4064708c94b0'
+-----------------------------------------------
+SET NOCOUNT ON
+BEGIN TRY
 
+	-----------------------
+	-- DECLARE
+	-----------------------
+	DECLARE @OrgID INT
+	SET @OrgID = (SELECT OrgID FROM dbo.tbl_UserOrganization WHERE Id = @Id)
+
+	SELECT 
+	   OrgID
+      ,OrgName
+      ,Address
+      ,Phone
+      ,PageID
+      ,IsActive
+  FROM dbo.tbl_Organization
+  WHERE OrgID = @OrgID
+  AND IsActive = 1
+
+END TRY
+BEGIN CATCH    
+	EXEC utility.sp_LogProcedureCall @ObjectID = @@PROCID, @UserID = @Id, @AdditionalInfo = @LogMessage
+	EXEC [utility].[sp_RaiseError]
+END CATCH
+GO
+
+CREATE PROC dbo.sp_OrganizationUpdate (
+	@OrgID INT
+	,@OrgName NVARCHAR(255)
+	,@Address NVARCHAR(1000)
+	,@Phone NVARCHAR(30)
+	,@UserID NVARCHAR(128) = NULL
+	,@LogMessage NVARCHAR(MAX) = NULL
+) 
+AS
+-----------------------------------------------
+----- EXEC dbo.sp_OrganizationUpdate 1, 'Best Maid', '223 ttt avenue, new york, ny 13923', '234 234 9923', 'c87b1c81-8f64-47a7-94c4-4064708c94b0'
+-----------------------------------------------
+SET NOCOUNT ON
+BEGIN TRY
+
+	SET @LogMessage = 'Begin Update'
+	UPDATE dbo.tbl_Organization
+	   SET OrgName = @OrgName
+		  ,Address = @Address
+		  ,Phone = @Phone		
+	 WHERE OrgID = @OrgID
+	 SET @LogMessage = 'End Update'
+	
+END TRY
+BEGIN CATCH    
+	EXEC utility.sp_LogProcedureCall @ObjectID = @@PROCID, @UserID = @UserID, @AdditionalInfo = @LogMessage
+	EXEC [utility].[sp_RaiseError]
+END CATCH

@@ -11,6 +11,6 @@ namespace Entities.DB
         public int? SettingsID { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-        public bool? ActiveYN { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

@@ -43,7 +43,7 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 http_1.HttpClientModule,
             ],
-            providers: [index_1.AuthenticationService, index_1.AuthGuard, index_1.UserService, index_1.TokenInterceptor],
+            providers: [index_1.AuthenticationService, index_1.AuthGuard, index_1.UserService, index_1.OrgService, index_1.TokenInterceptor],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

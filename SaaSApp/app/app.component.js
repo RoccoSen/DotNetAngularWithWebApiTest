@@ -13,7 +13,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<router-outlet> <a routerLink=\"/app_signin\" routerLinkActive=\"active\">Sign In</a>\n                               <a routerLink=\"/app_signout\" routerLinkActive=\"active\">Sign Out</a>\n                               <a routerLink=\"/app_register\" routerLinkActive=\"active\">Register</a>\n                               <a routerLink=\"/app_recover_password\" routerLinkActive=\"active\">Recover Password</a>\n                               <a routerLink=\"/app_404\" routerLinkActive=\"active\">404</a>\n                               <a routerLink=\"/app_504\" routerLinkActive=\"active\">504</a>\n                               <a routerLink=\"/app_dashboard\" routerLinkActive=\"active\">Dashboard</a>\n               </router-outlet>'",
+            template: "<router-outlet>\n\n               </router-outlet>'",
         })
     ], AppComponent);
     return AppComponent;

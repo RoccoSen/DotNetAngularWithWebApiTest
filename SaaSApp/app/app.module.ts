@@ -14,7 +14,7 @@ import { RecoverPasswordComponent } from './general/recover_password/recover_pas
 
 import { DashboardComponent } from './application/dashboard/dashboard.component';
 
-import { AuthenticationService, UserService, AuthGuard, TokenInterceptor  } from './services/index';
+import { AuthenticationService, UserService, AuthGuard, OrgService, TokenInterceptor } from './services/index';
 
 export const appRoutes: Routes = [
     { path: '', component: AppComponent },
@@ -37,7 +37,7 @@ export const appRoutes: Routes = [
         FormsModule,
         HttpClientModule,
     ],
-    providers: [AuthenticationService, AuthGuard, UserService, TokenInterceptor ],
+    providers: [AuthenticationService, AuthGuard, UserService, OrgService, TokenInterceptor ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }

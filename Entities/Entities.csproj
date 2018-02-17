@@ -44,6 +44,7 @@
     <Compile Include="ChangePassword.cs" />
     <Compile Include="ConfirmEmail.cs" />
     <Compile Include="DB\AppSettings.cs" />
+    <Compile Include="DB\Organization.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

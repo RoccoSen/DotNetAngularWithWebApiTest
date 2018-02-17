@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var index_1 = require("../../services/index");
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(usrSvc) {
+    function DashboardComponent(usrSvc, orgSvc) {
         var _this = this;
         this.usrSvc = usrSvc;
+        this.orgSvc = orgSvc;
         this.users = [];
+        this.organization = null;
         this.token = (localStorage.getItem('currentUser') !== null) ? JSON.parse(localStorage.getItem('currentUser')).token : null;
         this.userName = (localStorage.getItem('userName') !== null) ? JSON.parse(localStorage.getItem('userName')).userName : null;
         // get users from secure api end point
@@ -27,13 +29,21 @@ var DashboardComponent = /** @class */ (function () {
             console.log('should say unauthorized');
             console.log('oops', error);
         });
+        this.orgSvc.getOrg()
+            .subscribe(function (organization) {
+            _this.organization = organization;
+            console.log(_this.organization);
+        }, function (error) {
+            console.log('oops', error);
+        });
     }
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: "./dashboard.component.html",
         }),
-        __metadata("design:paramtypes", [index_1.UserService])
+        __metadata("design:paramtypes", [index_1.UserService,
+            index_1.OrgService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

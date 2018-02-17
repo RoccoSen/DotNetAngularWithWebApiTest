@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Entities;
+using Dapper;
+using Entities.DB;
+using Database;
+using System.Data;
+using System.Collections.Specialized;
 
 namespace SaaSApp.Controllers
 {
@@ -76,27 +81,31 @@ namespace SaaSApp.Controllers
                     return GetErrorResult(addUserResult);
                 }
 
+                // User has been created, insert a record in the organization table so it's avaiable for updating later
+                DynamicParameters pSignup = new DynamicParameters();
+                pSignup.Add("@Id", user.Id, dbType: DbType.String, direction: ParameterDirection.Input);
+                DatabaseUpdate.Update(pSignup, "dbo.sp_SignUp");
+
+
                 //The call back URL is stored in the database. This makes it easy to switch between DEV/UAT/PROD
-                //string Proc = "dbo.sp_AppSettingsGetByName";
-                //DynamicParameters param = new DynamicParameters();
-                //param.Add("@Name", "ANGULAR_CONFIRM_REGISTRATION_URL", dbType: DbType.String, direction: ParameterDirection.Input);
-                //IEnumerable<AppSettings> settings = DatabaseGet.AppSettingsGet(param, Proc);
-                //if (settings == null)
-                //    throw new ArgumentNullException("settings");
-                //if (settings.Count() == 0)
-                //    throw new Exception("Invalid settings count");
+                DynamicParameters pReg = new DynamicParameters();
+                pReg.Add("@Name", "CONFIRM_REGISTRATION_URL", dbType: DbType.String, direction: ParameterDirection.Input);
+                AppSettings settings = DatabaseGet.GetSingle<AppSettings>(pReg, "dbo.sp_AppSettingsGetByName");
+                if (settings == null)
+                    throw new ArgumentNullException("settings");
+
 
                 string code = await AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 code = HttpUtility.UrlEncode(code);
 
-                //NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
-                //queryString["userId"] = user.Id;
-                //queryString["code"] = code;
-                //string callbackUrl = settings.FirstOrDefault().Value + queryString.ToString();
-                string callbackUrl = string.Empty;
+                NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+                queryString["userId"] = user.Id;
+                queryString["code"] = code;
+                string callbackUrl = settings.Value + queryString.ToString();
 
                 await AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
+
                 return Created(locationHeader, TheModelFactory.Create(user));
             }
             catch (Exception ex)
@@ -156,24 +165,21 @@ namespace SaaSApp.Controllers
 
 
                 //The call back URL is stored in the database. This makes it easy to switch between DEV/UAT/PROD
-                //string Proc = "dbo.sp_AppSettingsGetByName";
-                //DynamicParameters param = new DynamicParameters();
-                //param.Add("@Name", "ANGULAR_CHANGE_PASSWORD_URL", dbType: DbType.String, direction: ParameterDirection.Input);
-                //IEnumerable<AppSettings> settings = DatabaseGet.AppSettingsGet(param, Proc);
-                //if (settings == null)
-                //    throw new ArgumentNullException("settings");
-                //if (settings.Count() == 0)
-                //    throw new Exception("Invalid settings count");
+                DynamicParameters p = new DynamicParameters();
+                p.Add("@Name", "CHANGE_PASSWORD_URL", dbType: DbType.String, direction: ParameterDirection.Input);
+
+                AppSettings settings = DatabaseGet.GetSingle<AppSettings>(p, "dbo.sp_AppSettingsGetByName");
+                if (settings == null)
+                    throw new ArgumentNullException("settings");
 
 
                 string code = await AppUserManager.GeneratePasswordResetTokenAsync(user.Id);
                 code = HttpUtility.UrlEncode(code);
 
-                //NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
-                //queryString["userId"] = user.Id;
-                //queryString["code"] = code;
-                //string callbackUrl = settings.FirstOrDefault().Value + queryString.ToString();
-                string callbackUrl = "test";
+                NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+                queryString["userId"] = user.Id;
+                queryString["code"] = code;
+                string callbackUrl = settings.Value + queryString.ToString();
                 await this.AppUserManager.SendEmailAsync(user.Id, "Password Reset", "Reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 return Ok();
