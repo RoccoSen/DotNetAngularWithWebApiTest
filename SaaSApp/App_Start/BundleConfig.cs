@@ -18,22 +18,14 @@ namespace SaaSApp
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/js/bootstrap.min.js",
-                      "~/js/respond.js",
-                      "~/js/fastclick.js",
-                      "~/js/nprogress.js",
-                      "~/js/bootstrap-wysiwyg.min.js",
-                      "~/js/jquery.hotkeys.js",
-                      "~/js/prettify.js",
-                      "~/js/prettify.min.js",
-                      "~/js/custom.min.js"
+                      "~/js/adminlte.min.js"
+                      //"~/js/dashboard.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/css/bootstrap.min.css",
-                      "~/css/maps/jquery-jvectormap-2.0.3.css",
-                      "~/css/nprogress.css",                      
-                      "~/css/prettify.min.css",
-                      "~/css/custom.min.css",
+                      "~/css/AdminLTE.min.css",
+                      "~/css/skin-black.min.css",
                       "~/css/site.css"));
         }
     }

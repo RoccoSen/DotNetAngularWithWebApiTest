@@ -4,33 +4,44 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { SignInComponent } from './general/sign_in/sign_in.component';
-import { SignOutComponent } from './general/sign_out/sign_out.component';
-import { Error404Component } from './general/404/error_404.component';
-import { Error504Component } from './general/504/error_504.component';
-import { RegisterComponent } from './general/register/register.component';
-import { RecoverPasswordComponent } from './general/recover_password/recover_password.component';
 
+import { AppComponent } from './app.component';
+import { PublicLayoutComponent, PrivateLayoutComponent } from './layout/index';
+import { SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent } from './general/index';
+
+//Private
 import { DashboardComponent } from './application/dashboard/dashboard.component';
 
+//Services
 import { AuthenticationService, UserService, AuthGuard, OrgService, TokenInterceptor } from './services/index';
 
 export const appRoutes: Routes = [
-    { path: '', component: AppComponent },
-    { path: 'app_signin', component: SignInComponent },
-    { path: 'app_signout', component: SignOutComponent },
-    { path: 'app_register', component: RegisterComponent },
-    { path: 'app_recover_password', component: RecoverPasswordComponent },
-    { path: 'app_404', component: Error404Component },
-    { path: 'app_504', component: Error504Component },
-    { path: 'app_dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: '**', redirectTo: 'www.saasapp.com' }
+    {
+        path: '', component: PublicLayoutComponent,
+        children: [
+            { path: '', component: SignInComponent },
+            { path: 'app_signout', component: SignOutComponent },
+            { path: 'app_register', component: RegisterComponent },
+            { path: 'app_recover_password', component: RecoverPasswordComponent },
+            { path: 'app_404', component: Error404Component },
+            { path: 'app_504', component: Error504Component }
+        ]
+    },
+    {
+        path: 'app_dashboard', component: PrivateLayoutComponent,
+        children: [
+            { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+            { path: 'app_404', component: Error404Component },
+            { path: 'app_504', component: Error504Component }
+        ]
+    },
+    { path: '**', redirectTo: 'app_404' }
 ];
 
 
 @NgModule({
-    declarations: [AppComponent, SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, DashboardComponent],
+    declarations: [AppComponent, SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, DashboardComponent
+        , PublicLayoutComponent, PrivateLayoutComponent],
     imports: [
         BrowserModule,
         RouterModule.forRoot(appRoutes),

@@ -532,6 +532,12 @@ INSERT INTO dbo.tbl_FirstPage(PageRout)
 VALUES ('app_dashboard')
 ,('app_yourorganization')
 
+
+INSERT INTO dbo.tbl_AppSettings(Name,Value,ActiveYN)
+VALUES ('CONFIRM_REGISTRATION_URL','www.website.com',1)
+
+
+
 GO
 CREATE PROC dbo.sp_SignUp (
  @Id NVARCHAR(128)
@@ -569,7 +575,7 @@ END CATCH
 GO
 
 
-CREATE PROC dbo.sp_OrganizationGet (
+ALTER PROC dbo.sp_OrganizationGet (
 	@Id NVARCHAR(128)
 	,@LogMessage NVARCHAR(MAX) = NULL
 ) 
@@ -587,15 +593,17 @@ BEGIN TRY
 	SET @OrgID = (SELECT OrgID FROM dbo.tbl_UserOrganization WHERE Id = @Id)
 
 	SELECT 
-	   OrgID
-      ,OrgName
-      ,Address
-      ,Phone
-      ,PageID
-      ,IsActive
-  FROM dbo.tbl_Organization
+	   o.OrgID
+      ,o.OrgName
+      ,o.Address
+      ,o.Phone
+      ,o.PageID
+	  ,p.PageRout
+      ,o.IsActive
+  FROM dbo.tbl_Organization o
+  LEFT JOIN dbo.tbl_FirstPage p ON o.PageID = p.PageID
   WHERE OrgID = @OrgID
-  AND IsActive = 1
+  AND o.IsActive = 1
 
 END TRY
 BEGIN CATCH    

@@ -53,4 +53,34 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('userName');
     }
+
+    register(userName: string, password: string): Observable<boolean> {
+
+        var data = {
+            Password: password
+            , Email: userName
+        }
+
+        return this.http.post('api/account/register', data)
+            .map((response: Auth) => {
+
+                // login successful if there's a bear token in the response
+                let token = response && response.access_token;
+                if (token) {
+                    // set token property
+                    this.token = token;
+
+                    // store userName and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify({ token: this.token }));
+                    localStorage.setItem('userName', JSON.stringify({ userName: userName }));
+
+                    // return true to indicate successful login
+                    return true;
+                } else {
+                    // return false to indicate failed login
+                    console.log('bad login');
+                    return false;
+                }
+            });
+    }
 }

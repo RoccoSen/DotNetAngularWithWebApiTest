@@ -12,38 +12,48 @@ var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
 var app_component_1 = require("./app.component");
-var sign_in_component_1 = require("./general/sign_in/sign_in.component");
-var sign_out_component_1 = require("./general/sign_out/sign_out.component");
-var error_404_component_1 = require("./general/404/error_404.component");
-var error_504_component_1 = require("./general/504/error_504.component");
-var register_component_1 = require("./general/register/register.component");
-var recover_password_component_1 = require("./general/recover_password/recover_password.component");
+var index_1 = require("./layout/index");
+var index_2 = require("./general/index");
+//Private
 var dashboard_component_1 = require("./application/dashboard/dashboard.component");
-var index_1 = require("./services/index");
+//Services
+var index_3 = require("./services/index");
 exports.appRoutes = [
-    { path: '', component: app_component_1.AppComponent },
-    { path: 'app_signin', component: sign_in_component_1.SignInComponent },
-    { path: 'app_signout', component: sign_out_component_1.SignOutComponent },
-    { path: 'app_register', component: register_component_1.RegisterComponent },
-    { path: 'app_recover_password', component: recover_password_component_1.RecoverPasswordComponent },
-    { path: 'app_404', component: error_404_component_1.Error404Component },
-    { path: 'app_504', component: error_504_component_1.Error504Component },
-    { path: 'app_dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [index_1.AuthGuard] },
-    { path: '**', redirectTo: 'www.saasapp.com' }
+    {
+        path: '', component: index_1.PublicLayoutComponent,
+        children: [
+            { path: '', component: index_2.SignInComponent },
+            { path: 'app_signout', component: index_2.SignOutComponent },
+            { path: 'app_register', component: index_2.RegisterComponent },
+            { path: 'app_recover_password', component: index_2.RecoverPasswordComponent },
+            { path: 'app_404', component: index_2.Error404Component },
+            { path: 'app_504', component: index_2.Error504Component }
+        ]
+    },
+    {
+        path: 'app_dashboard', component: index_1.PrivateLayoutComponent,
+        children: [
+            { path: '', component: dashboard_component_1.DashboardComponent, canActivate: [index_3.AuthGuard] },
+            { path: 'app_404', component: index_2.Error404Component },
+            { path: 'app_504', component: index_2.Error504Component }
+        ]
+    },
+    { path: '**', redirectTo: 'app_404' }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            declarations: [app_component_1.AppComponent, sign_in_component_1.SignInComponent, sign_out_component_1.SignOutComponent, error_404_component_1.Error404Component, error_504_component_1.Error504Component, register_component_1.RegisterComponent, recover_password_component_1.RecoverPasswordComponent, dashboard_component_1.DashboardComponent],
+            declarations: [app_component_1.AppComponent, index_2.SignInComponent, index_2.SignOutComponent, index_2.Error404Component, index_2.Error504Component, index_2.RegisterComponent, index_2.RecoverPasswordComponent, dashboard_component_1.DashboardComponent,
+                index_1.PublicLayoutComponent, index_1.PrivateLayoutComponent],
             imports: [
                 platform_browser_1.BrowserModule,
                 router_1.RouterModule.forRoot(exports.appRoutes),
                 forms_1.FormsModule,
                 http_1.HttpClientModule,
             ],
-            providers: [index_1.AuthenticationService, index_1.AuthGuard, index_1.UserService, index_1.OrgService, index_1.TokenInterceptor],
+            providers: [index_3.AuthenticationService, index_3.AuthGuard, index_3.UserService, index_3.OrgService, index_3.TokenInterceptor],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
