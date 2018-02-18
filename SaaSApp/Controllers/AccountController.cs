@@ -11,6 +11,9 @@ using Entities.DB;
 using Database;
 using System.Data;
 using System.Collections.Specialized;
+using System.Security.Claims;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 
 namespace SaaSApp.Controllers
 {

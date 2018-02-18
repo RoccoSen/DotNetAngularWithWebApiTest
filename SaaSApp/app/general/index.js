@@ -9,4 +9,5 @@ __export(require("./recover_password.component"));
 __export(require("./register.component"));
 __export(require("./sign_in.component"));
 __export(require("./sign_out.component"));
+__export(require("./account_confirm.component"));
 //# sourceMappingURL=index.js.map

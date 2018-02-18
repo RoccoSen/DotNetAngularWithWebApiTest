@@ -4,3 +4,4 @@ export * from './recover_password.component';
 export * from './register.component';
 export * from './sign_in.component';
 export * from './sign_out.component';
+export * from './account_confirm.component';

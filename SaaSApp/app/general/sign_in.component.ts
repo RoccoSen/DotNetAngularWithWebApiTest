@@ -9,8 +9,8 @@ import { AuthenticationService } from '../services/index';
 })
 export class SignInComponent implements OnInit {
 
-    username: string = "xxx@gmail.com";
-    password: string = "xxx";
+    username: string = "";
+    password: string = "";
 
     loading = false;
     error = '';

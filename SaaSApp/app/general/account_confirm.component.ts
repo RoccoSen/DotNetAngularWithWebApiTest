@@ -2,11 +2,9 @@
 
 @Component({
     selector: 'my-app',
-    templateUrl: `./recover_password.component.html`,
+    templateUrl: `./account_confirm.component.html`,
 })
-export class RecoverPasswordComponent {
-
-    username: string = "";
+export class AccountConfirmComponent {
 
     loading = false;
     error = '';

@@ -16,8 +16,8 @@ var SignInComponent = /** @class */ (function () {
     function SignInComponent(router, authenticationService) {
         this.router = router;
         this.authenticationService = authenticationService;
-        this.username = "xxx@gmail.com";
-        this.password = "xxx";
+        this.username = "";
+        this.password = "";
         this.loading = false;
         this.error = '';
     }

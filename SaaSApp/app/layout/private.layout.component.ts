@@ -1,15 +1,19 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/index';
 
 @Component({
     selector: 'my-app',
     templateUrl: './private.layout.component.html',
-  //  template: `
-  //  <app-header></app-header>
-  //  <router-outlet></router-outlet>
-  //`,
     styles: []
 })
 export class PrivateLayoutComponent implements OnInit {
+
+
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService) { }
+
 
     ngOnInit() {
         let body = document.getElementsByTagName('body')[0];
@@ -18,4 +22,10 @@ export class PrivateLayoutComponent implements OnInit {
         body.classList.add("skin-black");
         body.classList.add("sidebar-mini");
     }
+
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/app_signout']);
+    }
+
 }

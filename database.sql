@@ -534,7 +534,7 @@ VALUES ('app_dashboard')
 
 
 INSERT INTO dbo.tbl_AppSettings(Name,Value,ActiveYN)
-VALUES ('CONFIRM_REGISTRATION_URL','www.website.com',1)
+VALUES ('CONFIRM_REGISTRATION_URL','http://localhost:64652/app_account_confirm?',1)
 
 
 

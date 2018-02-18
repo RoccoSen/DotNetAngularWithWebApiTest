@@ -7,22 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RecoverPasswordComponent = /** @class */ (function () {
-    function RecoverPasswordComponent() {
-        this.username = "";
+var AccountConfirmComponent = /** @class */ (function () {
+    function AccountConfirmComponent() {
         this.loading = false;
         this.error = '';
     }
-    RecoverPasswordComponent.prototype.recover = function () {
+    AccountConfirmComponent.prototype.recover = function () {
         this.loading = true;
     };
-    RecoverPasswordComponent = __decorate([
+    AccountConfirmComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            templateUrl: "./recover_password.component.html",
+            templateUrl: "./account_confirm.component.html",
         })
-    ], RecoverPasswordComponent);
-    return RecoverPasswordComponent;
+    ], AccountConfirmComponent);
+    return AccountConfirmComponent;
 }());
-exports.RecoverPasswordComponent = RecoverPasswordComponent;
-//# sourceMappingURL=recover_password.component.js.map
+exports.AccountConfirmComponent = AccountConfirmComponent;
+//# sourceMappingURL=account_confirm.component.js.map

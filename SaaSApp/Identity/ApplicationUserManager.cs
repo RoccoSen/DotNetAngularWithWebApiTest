@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using SaaSApp.Service;
 
 namespace SaaSApp.Identity
 {
@@ -18,7 +19,7 @@ namespace SaaSApp.Identity
             var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
             //Rest of code is removed for clarity
-            //appUserManager.EmailService = new EmailService();
+            appUserManager.EmailService = new EmailService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {

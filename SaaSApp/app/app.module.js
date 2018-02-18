@@ -26,6 +26,7 @@ exports.appRoutes = [
             { path: 'app_signout', component: index_2.SignOutComponent },
             { path: 'app_register', component: index_2.RegisterComponent },
             { path: 'app_recover_password', component: index_2.RecoverPasswordComponent },
+            { path: 'app_account_confirm', component: index_2.AccountConfirmComponent },
             { path: 'app_404', component: index_2.Error404Component },
             { path: 'app_504', component: index_2.Error504Component }
         ]
@@ -37,8 +38,9 @@ exports.appRoutes = [
             { path: 'app_404', component: index_2.Error404Component },
             { path: 'app_504', component: index_2.Error504Component }
         ]
-    },
-    { path: '**', redirectTo: 'app_404' }
+    }
+    //,
+    //{ path: '**', redirectTo: 'app_404' }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -46,7 +48,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [app_component_1.AppComponent, index_2.SignInComponent, index_2.SignOutComponent, index_2.Error404Component, index_2.Error504Component, index_2.RegisterComponent, index_2.RecoverPasswordComponent, dashboard_component_1.DashboardComponent,
-                index_1.PublicLayoutComponent, index_1.PrivateLayoutComponent],
+                index_1.PublicLayoutComponent, index_1.PrivateLayoutComponent, index_2.AccountConfirmComponent],
             imports: [
                 platform_browser_1.BrowserModule,
                 router_1.RouterModule.forRoot(exports.appRoutes),

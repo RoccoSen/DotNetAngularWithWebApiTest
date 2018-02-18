@@ -21,7 +21,7 @@ var AuthGuard = /** @class */ (function () {
             return true;
         }
         // not logged in so redirect to login page
-        this.router.navigate(['/app_signin']);
+        this.router.navigate(['/']);
         return false;
     };
     AuthGuard = __decorate([
