@@ -26,7 +26,9 @@ export class SignInComponent implements OnInit {
 
     private login() {
 
+        this.error = '';
         this.loading = true;
+
         this.authenticationService.login(this.username, this.password)
             .subscribe(result => {
                 if (result === true) {
@@ -36,8 +38,13 @@ export class SignInComponent implements OnInit {
                 } else {
                     // login failed
                     this.error = 'Username or password is incorrect';
+                    console.log(result);
                     this.loading = false;
                 }
+            },
+            err => {
+                this.error = err.error.error_description;
+                this.password = "";
             });
     }
 }

@@ -14,18 +14,19 @@ using System.Collections.Specialized;
 using System.Security.Claims;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using System.Web.Http.ModelBinding;
 
 namespace SaaSApp.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : BaseApiController
     {
-        [Authorize]
-        [Route("users")]
-        public IHttpActionResult GetUsers()
-        {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
-        }
+        //[Authorize]
+        //[Route("users")]
+        //public IHttpActionResult GetUsers()
+        //{
+        //    return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
+        //}
 
         [Authorize]
         [Route("user/{id:guid}", Name = "GetUserById")]
@@ -63,7 +64,17 @@ namespace SaaSApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                string firstError = string.Empty;
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        firstError = error.ErrorMessage;
+                        break;
+                    }
+                }
+
+                return BadRequest(firstError);
             }
 
             try
@@ -155,8 +166,7 @@ namespace SaaSApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                ModelState.AddModelError("", "E-mail is required");
-                return BadRequest(ModelState);
+                return BadRequest("E-mail is required");
             }
 
             try
@@ -164,7 +174,7 @@ namespace SaaSApp.Controllers
 
                 var user = await this.AppUserManager.FindByNameAsync(username);
                 if (user == null)
-                    return BadRequest();
+                    return BadRequest("No user with this email");
 
 
                 //The call back URL is stored in the database. This makes it easy to switch between DEV/UAT/PROD

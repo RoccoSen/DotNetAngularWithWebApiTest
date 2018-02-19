@@ -1,5 +1,7 @@
-﻿import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from '../services/index';
 
 @Component({
     selector: 'my-app',
@@ -10,9 +12,18 @@ export class RegisterComponent {
     email: string = "";
     password: string = ""
 
-    constructor(private http: HttpClient) {
+    loading = false;
+    error = '';
 
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService) { }
+
+    ngOnInit() {
+        // reset login status
+        this.authenticationService.logout();
     }
+
 
     private register() {
 
@@ -27,13 +38,30 @@ export class RegisterComponent {
             , Email : this.email
         }
 
-        this.http.post('api/account/register', data).subscribe(
-            data => {
-                console.log("POST Request is successful ", data);
+        this.authenticationService.register(this.email, this.password)
+            .subscribe(result => {
+
+                this.authenticationService.login(this.email, this.password)
+                    .subscribe(result => {
+                        if (result === true) {
+                            // login successful
+                            this.router.navigate(['/app_dashboard']);
+                            this.loading = false;
+                        } else {
+                            // login failed
+                            this.error = 'Username or password is incorrect';
+                            console.log(result);
+                            this.loading = false;
+                        }
+                    },
+                    err => {
+                        this.error = err.error.error_description;
+                        this.password = "";
+                    });
             },
-            error => {
-                console.log("Error", error);
-            }
-        );
+            err => {
+                this.error = err.error.message;
+                this.password = "";
+            });
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using SendGrid;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -16,80 +15,69 @@ namespace SaaSApp.Service
         // Use NuGet to install SendGrid (Basic C# client lib) 
         private async Task configSendGridasync(IdentityMessage message)
         {
-            var myMessage = new SendGridMessage();
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.sendgrid.net";
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"],
+                                        ConfigurationManager.AppSettings["emailService:Password"]);
+            client.Credentials = credentials;
 
-            myMessage.AddTo(message.Destination);
+
+            var myMessage = new MailMessage();
+            myMessage.To.Add(message.Destination);
             myMessage.From = new System.Net.Mail.MailAddress("support@test.com", "support@test.com");
             myMessage.Subject = message.Subject;
-            myMessage.Text = message.Body;
-            myMessage.Html = message.Body;
+            myMessage.Body = message.Body;
 
-            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"],
-                                                    ConfigurationManager.AppSettings["emailService:Password"]);
-
-            // Create a Web transport for sending email.
-            var transportWeb = new Web(credentials);
-
-            // Send the email.
-            if (transportWeb != null)
-            {
-                await transportWeb.DeliverAsync(myMessage);
-            }
-            else
-            {
-                //Trace.TraceError("Failed to create Web transport.");
-                await Task.FromResult(0);
-            }
+            await client.SendMailAsync(myMessage);
         }
 
         public async Task SendEmailAsync(string from, string to, string subject, string message)
         {
-            var myMessage = new SendGrid.SendGridMessage();
-            myMessage.AddTo(to);
-            myMessage.From = new MailAddress(from);
-            myMessage.Subject = subject;
-            myMessage.Text = message;
 
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.sendgrid.net";
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
             var credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"],
-                                                    ConfigurationManager.AppSettings["emailService:Password"]);
+                                        ConfigurationManager.AppSettings["emailService:Password"]);
+            client.Credentials = credentials;
 
-            var transportWeb = new SendGrid.Web(credentials);
 
-            // Send the email.
-            if (transportWeb != null)
-            {
-                await transportWeb.DeliverAsync(myMessage);
-            }
-            else
-            {
-                //Trace.TraceError("Failed to create Web transport.");
-                await Task.FromResult(0);
-            }
+            var myMessage = new MailMessage();
+            myMessage.To.Add(to);
+            myMessage.From = new System.Net.Mail.MailAddress(from);
+            myMessage.Subject = subject;
+            myMessage.Body = message;
+
+            await client.SendMailAsync(myMessage);
         }
 
         public async Task SendEmailAsyncHtml(string from, string to, string subject, string html)
         {
-            var myMessage = new SendGrid.SendGridMessage();
-            myMessage.AddTo(to);
-            myMessage.From = new MailAddress(from);
-            myMessage.Subject = subject;
-            myMessage.Html = html;
-
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.sendgrid.net";
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
             var credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"],
-                                                    ConfigurationManager.AppSettings["emailService:Password"]);
+                                        ConfigurationManager.AppSettings["emailService:Password"]);
+            client.Credentials = credentials;
 
-            var transportWeb = new SendGrid.Web(credentials);
 
-            // Send the email.
-            if (transportWeb != null)
-            {
-                await transportWeb.DeliverAsync(myMessage);
-            }
-            else
-            {
-                //Trace.TraceError("Failed to create Web transport.");
-                await Task.FromResult(0);
-            }
+            var myMessage = new MailMessage();
+            myMessage.To.Add(to);
+            myMessage.From = new System.Net.Mail.MailAddress(from);
+            myMessage.Subject = subject;
+            myMessage.Body = html;
+
+            await client.SendMailAsync(myMessage);
         }
     }
 }

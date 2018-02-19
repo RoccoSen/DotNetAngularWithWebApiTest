@@ -1,41 +1,4 @@
-﻿<!--<div class="login_wrapper">
-    <div class="animate form login_form">
-        <section class="login_content">
-            <form>
-                <h1>Login Form</h1>
-                <div>
-                    <input type="text" class="form-control" placeholder="E-mail" required="" [(ngModel)]="username" name="username"/>
-                </div>
-                <div>
-                    <input type="password" class="form-control" placeholder="Password" required="" [(ngModel)]="password" name="password"/>
-                </div>
-                <div>
-                    <a class="btn btn-default submit" (click)="login()" >Log in</a>
-                    <a class="reset_pass" href="#">Lost your password?</a>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="separator">
-                    <p class="change_link">
-                        New to site?
-                        <a routerLink="/app_register" routerLinkActive="active" class="to_register">Create Account</a>
-                    </p>
-
-                    <div class="clearfix"></div>
-                    <br />
-
-                    <div>
-                        <h1><i class="fa fa-paw"></i> CodeLab LLC!</h1>
-                        <p>©2016 All Rights Reserved.</p>
-                    </div>
-                </div>
-            </form>
-        </section>
-    </div>
-</div>-->
-
-<div class="login-box">
+﻿<div class="login-box">
     <div class="login-logo">
         <a href="../../index2.html"><b>Admin</b>LTE</a>
     </div>
@@ -57,6 +20,9 @@
                     <button type="submit" class="btn btn-primary btn-block btn-flat" (click)="login()">Sign In</button>
                 </div>
                 <!-- /.col -->
+            </div>
+            <div class="form-group has-feedback">
+                <div class="text-center error_text">{{error}}</div>
             </div>
         </form>
         <div class="social-auth-links text-center">

@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Auth } from '../model/index'
 
@@ -63,24 +63,17 @@ export class AuthenticationService {
 
         return this.http.post('api/account/register', data)
             .map((response: Auth) => {
+                return true;
+            });
+    }
 
-                // login successful if there's a bear token in the response
-                let token = response && response.access_token;
-                if (token) {
-                    // set token property
-                    this.token = token;
+    changePasswordRequest(userName: string): Observable<boolean> {
 
-                    // store userName and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ token: this.token }));
-                    localStorage.setItem('userName', JSON.stringify({ userName: userName }));
+        let para = new HttpParams().set('username', userName);
 
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    console.log('bad login');
-                    return false;
-                }
+        return this.http.get('api/account/changepasswordrequest', { params: para })
+            .map((response: Auth) => {
+                return true;
             });
     }
 }

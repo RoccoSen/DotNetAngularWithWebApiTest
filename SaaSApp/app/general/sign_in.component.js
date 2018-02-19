@@ -27,6 +27,7 @@ var SignInComponent = /** @class */ (function () {
     };
     SignInComponent.prototype.login = function () {
         var _this = this;
+        this.error = '';
         this.loading = true;
         this.authenticationService.login(this.username, this.password)
             .subscribe(function (result) {
@@ -38,8 +39,12 @@ var SignInComponent = /** @class */ (function () {
             else {
                 // login failed
                 _this.error = 'Username or password is incorrect';
+                console.log(result);
                 _this.loading = false;
             }
+        }, function (err) {
+            _this.error = err.error.error_description;
+            _this.password = "";
         });
     };
     SignInComponent = __decorate([

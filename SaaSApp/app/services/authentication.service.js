@@ -54,29 +54,20 @@ var AuthenticationService = /** @class */ (function () {
         localStorage.removeItem('userName');
     };
     AuthenticationService.prototype.register = function (userName, password) {
-        var _this = this;
         var data = {
             Password: password,
             Email: userName
         };
         return this.http.post('api/account/register', data)
             .map(function (response) {
-            // login successful if there's a bear token in the response
-            var token = response && response.access_token;
-            if (token) {
-                // set token property
-                _this.token = token;
-                // store userName and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ token: _this.token }));
-                localStorage.setItem('userName', JSON.stringify({ userName: userName }));
-                // return true to indicate successful login
-                return true;
-            }
-            else {
-                // return false to indicate failed login
-                console.log('bad login');
-                return false;
-            }
+            return true;
+        });
+    };
+    AuthenticationService.prototype.changePasswordRequest = function (userName) {
+        var para = new http_1.HttpParams().set('username', userName);
+        return this.http.get('api/account/changepasswordrequest', { params: para })
+            .map(function (response) {
+            return true;
         });
     };
     AuthenticationService = __decorate([

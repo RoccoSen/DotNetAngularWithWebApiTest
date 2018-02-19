@@ -1,4 +1,6 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+
+import { AuthenticationService } from '../services/index';
 
 @Component({
     selector: 'my-app',
@@ -11,9 +13,21 @@ export class RecoverPasswordComponent {
     loading = false;
     error = '';
 
+    constructor(
+        private authenticationService: AuthenticationService) { }
+
     private recover() {
 
         this.loading = true;
-
+        this.authenticationService.changePasswordRequest(this.username)
+            .subscribe(result => {
+                if (result === true) {
+                 
+                }
+            },
+            err => {
+                this.error = err.error.message;
+                console.log(err);
+            });
     }
 }
