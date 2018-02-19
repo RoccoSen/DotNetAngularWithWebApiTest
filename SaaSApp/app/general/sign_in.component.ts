@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../services/index';
 
 @Component({
@@ -8,13 +8,11 @@ import { AuthenticationService } from '../services/index';
     templateUrl: `./sign_in.component.html`,
 })
 export class SignInComponent implements OnInit {
-
-    username: string = "";
-    password: string = "";
-
     loading = false;
-    error = '';
- 
+    error: string = "";
+
+    private frm: NgForm;
+
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService) { }
@@ -24,12 +22,25 @@ export class SignInComponent implements OnInit {
         this.authenticationService.logout();
     }
 
-    private login() {
+    private login(frm: NgForm) {
 
-        this.error = '';
+        if (frm.invalid)
+            return;
+
+        this.error = "";       
+
+        if (null == frm.value.username || "" == frm.value.username) {
+            this.error = "Please enter your e-mail";
+            return;
+        }
+
+        if (null == frm.value.password || "" == frm.value.password) {
+            this.error = "Please enter your password";
+            return;
+        }
+
         this.loading = true;
-
-        this.authenticationService.login(this.username, this.password)
+        this.authenticationService.login(frm.value.username, frm.value.password)
             .subscribe(result => {
                 if (result === true) {
                     // login successful
@@ -44,7 +55,6 @@ export class SignInComponent implements OnInit {
             },
             err => {
                 this.error = err.error.error_description;
-                this.password = "";
             });
     }
 }

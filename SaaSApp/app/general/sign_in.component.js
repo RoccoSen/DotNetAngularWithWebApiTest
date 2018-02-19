@@ -16,20 +16,28 @@ var SignInComponent = /** @class */ (function () {
     function SignInComponent(router, authenticationService) {
         this.router = router;
         this.authenticationService = authenticationService;
-        this.username = "";
-        this.password = "";
         this.loading = false;
-        this.error = '';
+        this.error = "";
     }
     SignInComponent.prototype.ngOnInit = function () {
         // reset login status
         this.authenticationService.logout();
     };
-    SignInComponent.prototype.login = function () {
+    SignInComponent.prototype.login = function (frm) {
         var _this = this;
-        this.error = '';
+        if (frm.invalid)
+            return;
+        this.error = "";
+        if (null == frm.value.username || "" == frm.value.username) {
+            this.error = "Please enter your e-mail";
+            return;
+        }
+        if (null == frm.value.password || "" == frm.value.password) {
+            this.error = "Please enter your password";
+            return;
+        }
         this.loading = true;
-        this.authenticationService.login(this.username, this.password)
+        this.authenticationService.login(frm.value.username, frm.value.password)
             .subscribe(function (result) {
             if (result === true) {
                 // login successful
@@ -44,7 +52,6 @@ var SignInComponent = /** @class */ (function () {
             }
         }, function (err) {
             _this.error = err.error.error_description;
-            _this.password = "";
         });
     };
     SignInComponent = __decorate([

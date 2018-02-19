@@ -1,3 +1,15 @@
 ﻿.error_text {
     color: #c50000;
 }
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442; /* red */
+}
+
+.validation-message {
+    background-color: beige;
+    line-height: 2.5;
+}
