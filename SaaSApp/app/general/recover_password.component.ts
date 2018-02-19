@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
 import { AuthenticationService } from '../services/index';
 
 @Component({
@@ -9,9 +8,11 @@ import { AuthenticationService } from '../services/index';
 export class RecoverPasswordComponent {
 
     username: string = "";
+    error: string = "";
 
+    isConfirmEmailSent: boolean = false;
     loading = false;
-    error = '';
+    
 
     constructor(
         private authenticationService: AuthenticationService) { }
@@ -22,7 +23,7 @@ export class RecoverPasswordComponent {
         this.authenticationService.changePasswordRequest(this.username)
             .subscribe(result => {
                 if (result === true) {
-                 
+                    isConfirmEmailSent = true;
                 }
             },
             err => {

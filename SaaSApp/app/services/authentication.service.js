@@ -84,6 +84,20 @@ var AuthenticationService = /** @class */ (function () {
             return true;
         });
     };
+    AuthenticationService.prototype.resetPassword = function (userID, code, newPassword, confirmPassword) {
+        if (null == userID || null == code || null == newPassword || null == confirmPassword)
+            return;
+        var data = {
+            UserID: userID,
+            Code: code,
+            NewPassword: newPassword,
+            ConfirmPassword: confirmPassword
+        };
+        return this.http.post('api/account/resetpassword', data)
+            .map(function (response) {
+            return true;
+        });
+    };
     AuthenticationService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient])

@@ -217,7 +217,16 @@ namespace SaaSApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                string firstError = string.Empty;
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        firstError = error.ErrorMessage;
+                        break;
+                    }
+                }
+                return BadRequest(firstError);
             }
 
             try
@@ -233,8 +242,7 @@ namespace SaaSApp.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                return BadRequest(ModelState);
+                return BadRequest(ex.Message);
             }
 
             return Ok();

@@ -15,8 +15,9 @@ var RecoverPasswordComponent = /** @class */ (function () {
     function RecoverPasswordComponent(authenticationService) {
         this.authenticationService = authenticationService;
         this.username = "";
+        this.error = "";
+        this.isConfirmEmailSent = false;
         this.loading = false;
-        this.error = '';
     }
     RecoverPasswordComponent.prototype.recover = function () {
         var _this = this;
@@ -24,6 +25,7 @@ var RecoverPasswordComponent = /** @class */ (function () {
         this.authenticationService.changePasswordRequest(this.username)
             .subscribe(function (result) {
             if (result === true) {
+                isConfirmEmailSent = true;
             }
         }, function (err) {
             _this.error = err.error.message;

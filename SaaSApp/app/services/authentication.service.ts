@@ -95,4 +95,22 @@ export class AuthenticationService {
                 return true;
             });
     }
+
+    resetPassword(userID: string, code: string, newPassword: string, confirmPassword: string): Observable<boolean> {
+
+        if (null == userID || null == code || null == newPassword || null == confirmPassword)
+            return;
+
+        var data = {
+            UserID: userID
+            , Code: code
+            , NewPassword: newPassword
+            , ConfirmPassword: confirmPassword
+        }
+
+        return this.http.post('api/account/resetpassword', data)
+            .map((response: Auth) => {
+                return true;
+            });
+    }
 }
