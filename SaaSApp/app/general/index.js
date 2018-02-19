@@ -10,4 +10,5 @@ __export(require("./register.component"));
 __export(require("./sign_in.component"));
 __export(require("./sign_out.component"));
 __export(require("./account_confirm.component"));
+__export(require("./change_password.component"));
 //# sourceMappingURL=index.js.map

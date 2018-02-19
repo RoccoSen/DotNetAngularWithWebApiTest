@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PublicLayoutComponent, PrivateLayoutComponent } from './layout/index';
-import { SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, AccountConfirmComponent } from './general/index';
+import { SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, AccountConfirmComponent, ChangePasswordComponent } from './general/index';
 
 //Private
 import { DashboardComponent } from './application/dashboard/dashboard.component';
@@ -24,6 +24,7 @@ export const appRoutes: Routes = [
             { path: 'app_register', component: RegisterComponent },
             { path: 'app_recover_password', component: RecoverPasswordComponent },
             { path: 'app_account_confirm', component: AccountConfirmComponent },
+            { path: 'app_change_password', component: ChangePasswordComponent },
             { path: 'app_404', component: Error404Component },
             { path: 'app_504', component: Error504Component }
         ]
@@ -43,7 +44,7 @@ export const appRoutes: Routes = [
 
 @NgModule({
     declarations: [AppComponent, SignInComponent, SignOutComponent, Error404Component, Error504Component, RegisterComponent, RecoverPasswordComponent, DashboardComponent
-        , PublicLayoutComponent, PrivateLayoutComponent, AccountConfirmComponent],
+        , PublicLayoutComponent, PrivateLayoutComponent, AccountConfirmComponent, ChangePasswordComponent],
     imports: [
         BrowserModule,
         RouterModule.forRoot(appRoutes),

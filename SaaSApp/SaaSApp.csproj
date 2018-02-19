@@ -259,6 +259,7 @@
   <ItemGroup>
     <Content Include="app\application\dashboard\dashboard.component.html" />
     <Content Include="app\general\account_confirm.component.html" />
+    <Content Include="app\general\change_password.component.html" />
     <Content Include="app\general\error_404.component.html" />
     <Content Include="app\general\error_504.component.html" />
     <Content Include="app\general\recover_password.component.html" />
@@ -266,6 +267,7 @@
     <Content Include="app\general\sign_in.component.html" />
     <Content Include="app\general\sign_out.component.html" />
     <TypeScriptCompile Include="app\general\account_confirm.component.ts" />
+    <TypeScriptCompile Include="app\general\change_password.component.ts" />
     <TypeScriptCompile Include="app\general\index.ts" />
     <TypeScriptCompile Include="app\layout\index.ts" />
     <TypeScriptCompile Include="app\layout\private.layout.component.ts" />
