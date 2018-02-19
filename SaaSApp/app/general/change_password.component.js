@@ -21,6 +21,7 @@ var ChangePasswordComponent = /** @class */ (function () {
         this.password2 = '';
         this.userId = '';
         this.code = '';
+        this.isPasswordChanged = false;
     }
     ChangePasswordComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -33,7 +34,7 @@ var ChangePasswordComponent = /** @class */ (function () {
     ChangePasswordComponent.prototype.changePassword = function () {
         var _this = this;
         this.authenticationService.resetPassword(this.userId, this.code, this.password1, this.password2).subscribe(function (result) {
-            console.log("Password changed");
+            _this.isPasswordChanged = true;
         }, function (err) {
             _this.error = err.error.message;
         });

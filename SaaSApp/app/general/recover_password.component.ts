@@ -23,7 +23,7 @@ export class RecoverPasswordComponent {
         this.authenticationService.changePasswordRequest(this.username)
             .subscribe(result => {
                 if (result === true) {
-                    isConfirmEmailSent = true;
+                    this.isConfirmEmailSent = true;
                 }
             },
             err => {

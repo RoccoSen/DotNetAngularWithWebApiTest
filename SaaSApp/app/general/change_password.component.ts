@@ -13,6 +13,7 @@ export class ChangePasswordComponent implements OnInit {
     password2: string = '';
     userId: string = '';
     code: string = '';
+    isPasswordChanged: boolean = false;
 
     constructor(private activatedRoute: ActivatedRoute,
         private authenticationService: AuthenticationService) { }
@@ -29,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
 
         this.authenticationService.resetPassword(this.userId, this.code, this.password1, this.password2).subscribe(result =>
         {
-            console.log("Password changed");
+            this.isPasswordChanged = true;
         },
         err => {
             this.error = err.error.message;

@@ -25,7 +25,7 @@ var RecoverPasswordComponent = /** @class */ (function () {
         this.authenticationService.changePasswordRequest(this.username)
             .subscribe(function (result) {
             if (result === true) {
-                isConfirmEmailSent = true;
+                _this.isConfirmEmailSent = true;
             }
         }, function (err) {
             _this.error = err.error.message;
