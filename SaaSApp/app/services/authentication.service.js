@@ -70,6 +70,20 @@ var AuthenticationService = /** @class */ (function () {
             return true;
         });
     };
+    AuthenticationService.prototype.confirmEmail = function (userID, code) {
+        if (null == userID)
+            return;
+        if (null == code)
+            return;
+        var data = {
+            UserID: userID,
+            Code: code
+        };
+        return this.http.post('api/account/confirmemail', data)
+            .map(function (response) {
+            return true;
+        });
+    };
     AuthenticationService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient])

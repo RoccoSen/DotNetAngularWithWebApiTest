@@ -76,4 +76,23 @@ export class AuthenticationService {
                 return true;
             });
     }
+
+    confirmEmail(userID: string, code: string): Observable<boolean> {
+
+        if (null == userID)
+            return;
+
+        if (null == code)
+            return;
+
+        var data = {
+            UserID: userID
+            , Code: code
+        }
+
+        return this.http.post('api/account/confirmemail', data)
+            .map((response: Auth) => {
+                return true;
+            });
+    }
 }
