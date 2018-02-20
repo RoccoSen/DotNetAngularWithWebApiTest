@@ -26,10 +26,10 @@
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" placeholder="Password" 
                        name="password"
-                        ngModel
-                        required
-                        minlength="6"
-                        #password="ngModel">
+                       ngModel
+                       required
+                       minlength="6"
+                       #password="ngModel">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-center validation-message">
                     <div *ngIf="password.errors.required">

@@ -17,8 +17,6 @@ var ChangePasswordComponent = /** @class */ (function () {
         this.activatedRoute = activatedRoute;
         this.authenticationService = authenticationService;
         this.error = '';
-        this.password1 = '';
-        this.password2 = '';
         this.userId = '';
         this.code = '';
         this.isPasswordChanged = false;
@@ -31,9 +29,24 @@ var ChangePasswordComponent = /** @class */ (function () {
             _this.code = params['code'];
         });
     };
-    ChangePasswordComponent.prototype.changePassword = function () {
+    ChangePasswordComponent.prototype.changePassword = function (frm) {
         var _this = this;
-        this.authenticationService.resetPassword(this.userId, this.code, this.password1, this.password2).subscribe(function (result) {
+        if (frm.invalid)
+            return;
+        this.error = "";
+        if (null == frm.value.password1 || "" == frm.value.password1) {
+            this.error = "Please enter your password";
+            return;
+        }
+        if (null == frm.value.password2 || "" == frm.value.password2) {
+            this.error = "Please enter your password";
+            return;
+        }
+        if (frm.value.password1 != frm.value.password2) {
+            this.error = "Passwords do not match";
+            return;
+        }
+        this.authenticationService.resetPassword(this.userId, this.code, frm.value.password1, frm.value.password2).subscribe(function (result) {
             _this.isPasswordChanged = true;
         }, function (err) {
             _this.error = err.error.message;

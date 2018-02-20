@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../services/index';
 
 @Component({
@@ -8,12 +9,11 @@ import { AuthenticationService } from '../services/index';
 })
 export class ChangePasswordComponent implements OnInit {
 
-    error: string = '';
-    password1: string = '';
-    password2: string = '';
-    userId: string = '';
-    code: string = '';
-    isPasswordChanged: boolean = false;
+    private error: string = '';
+    private frm: NgForm;
+    private userId: string = '';
+    private code: string = '';
+    private isPasswordChanged: boolean = false;
 
     constructor(private activatedRoute: ActivatedRoute,
         private authenticationService: AuthenticationService) { }
@@ -26,9 +26,29 @@ export class ChangePasswordComponent implements OnInit {
         });
     }
 
-    changePassword() {
+    changePassword(frm: NgForm) {
 
-        this.authenticationService.resetPassword(this.userId, this.code, this.password1, this.password2).subscribe(result =>
+        if (frm.invalid)
+            return;
+
+        this.error = "";
+
+        if (null == frm.value.password1 || "" == frm.value.password1) {
+            this.error = "Please enter your password";
+            return;
+        }
+
+        if (null == frm.value.password2 || "" == frm.value.password2) {
+            this.error = "Please enter your password";
+            return;
+        }
+
+        if (frm.value.password1 != frm.value.password2) {
+            this.error = "Passwords do not match";
+            return;
+        }
+
+        this.authenticationService.resetPassword(this.userId, this.code, frm.value.password1, frm.value.password2).subscribe(result =>
         {
             this.isPasswordChanged = true;
         },
