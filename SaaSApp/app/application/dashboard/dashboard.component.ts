@@ -19,15 +19,15 @@ export class DashboardComponent {
         private orgSvc: OrgService) {
 
         // get users from secure api end point
-        this.usrSvc.getUsers()
-            .subscribe(users => {
-                this.users = users;
-                console.log(this.users[0].email);
-            },
-            error => {
-                console.log('should say unauthorized');
-                console.log('oops', error)
-            });
+        //this.usrSvc.getUsers()
+        //    .subscribe(users => {
+        //        this.users = users;
+        //        console.log(this.users[0].email);
+        //    },
+        //    error => {
+        //        console.log('should say unauthorized');
+        //        console.log('oops', error)
+        //    });
 
         this.orgSvc.getOrg()
             .subscribe(organization => {

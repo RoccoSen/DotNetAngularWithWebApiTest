@@ -17,22 +17,7 @@ var UserService = /** @class */ (function () {
     function UserService(http, authenticationService) {
         this.http = http;
         this.authenticationService = authenticationService;
-        // add authorization header with jwt token
-        this.httpOptions = {
-            headers: new http_1.HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + this.authenticationService.token
-            })
-        };
     }
-    UserService.prototype.getUsers = function () {
-        // get users from api
-        return this.http.get('/api/account/users', this.httpOptions)
-            .map(function (data) {
-            console.log(data);
-            return data;
-        });
-    };
     UserService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,

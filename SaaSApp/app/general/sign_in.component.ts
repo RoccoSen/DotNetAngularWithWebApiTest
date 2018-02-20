@@ -8,9 +8,9 @@ import { AuthenticationService } from '../services/index';
     templateUrl: `./sign_in.component.html`,
 })
 export class SignInComponent implements OnInit {
+
     loading = false;
     error: string = "";
-
     private frm: NgForm;
 
     constructor(

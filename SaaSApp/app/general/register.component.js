@@ -16,8 +16,6 @@ var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(router, authenticationService) {
         this.router = router;
         this.authenticationService = authenticationService;
-        this.email = "";
-        this.password = "";
         this.loading = false;
         this.error = '';
     }
@@ -25,19 +23,22 @@ var RegisterComponent = /** @class */ (function () {
         // reset login status
         this.authenticationService.logout();
     };
-    RegisterComponent.prototype.register = function () {
+    RegisterComponent.prototype.register = function (frm) {
         var _this = this;
-        if (null == this.email)
+        if (frm.invalid)
             return;
-        if (null == this.password)
+        this.error = "";
+        if (null == frm.value.username || "" == frm.value.username) {
+            this.error = "Please enter your e-mail";
             return;
-        var data = {
-            Password: this.password,
-            Email: this.email
-        };
-        this.authenticationService.register(this.email, this.password)
+        }
+        if (null == frm.value.password || "" == frm.value.password) {
+            this.error = "Please enter your password";
+            return;
+        }
+        this.authenticationService.register(frm.value.username, frm.value.password)
             .subscribe(function (result) {
-            _this.authenticationService.login(_this.email, _this.password)
+            _this.authenticationService.login(frm.value.username, frm.value.password)
                 .subscribe(function (result) {
                 if (result === true) {
                     // login successful
@@ -52,11 +53,9 @@ var RegisterComponent = /** @class */ (function () {
                 }
             }, function (err) {
                 _this.error = err.error.error_description;
-                _this.password = "";
             });
         }, function (err) {
             _this.error = err.error.message;
-            _this.password = "";
         });
     };
     RegisterComponent = __decorate([

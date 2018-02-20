@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../services/index';
 
 @Component({
@@ -9,11 +9,9 @@ import { AuthenticationService } from '../services/index';
 })
 export class RegisterComponent {
 
-    email: string = "";
-    password: string = ""
-
     loading = false;
     error = '';
+    private frm: NgForm;
 
     constructor(
         private router: Router,
@@ -24,24 +22,27 @@ export class RegisterComponent {
         this.authenticationService.logout();
     }
 
+    private register(frm: NgForm) {
 
-    private register() {
-
-        if (null == this.email)
+        if (frm.invalid)
             return;
 
-        if (null == this.password)
+        this.error = "";
+
+        if (null == frm.value.username || "" == frm.value.username) {
+            this.error = "Please enter your e-mail";
             return;
-       
-        var data = {
-            Password: this.password
-            , Email : this.email
         }
 
-        this.authenticationService.register(this.email, this.password)
+        if (null == frm.value.password || "" == frm.value.password) {
+            this.error = "Please enter your password";
+            return;
+        }
+       
+        this.authenticationService.register(frm.value.username, frm.value.password)
             .subscribe(result => {
 
-                this.authenticationService.login(this.email, this.password)
+                this.authenticationService.login(frm.value.username, frm.value.password)
                     .subscribe(result => {
                         if (result === true) {
                             // login successful
@@ -56,12 +57,10 @@ export class RegisterComponent {
                     },
                     err => {
                         this.error = err.error.error_description;
-                        this.password = "";
                     });
             },
             err => {
                 this.error = err.error.message;
-                this.password = "";
             });
     }
 }

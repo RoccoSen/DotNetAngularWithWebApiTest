@@ -15,21 +15,21 @@ export class UserService {
     }
 
     // add authorization header with jwt token
-    private httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-            , 'Authorization': 'Bearer ' + this.authenticationService.token
-        })
-    };
+    //private httpOptions = {
+    //    headers: new HttpHeaders({
+    //        'Content-Type': 'application/x-www-form-urlencoded'
+    //        , 'Authorization': 'Bearer ' + this.authenticationService.token
+    //    })
+    //};
 
-    getUsers(): Observable<User[]> {
+    //getUsers(): Observable<User[]> {
         
-        // get users from api
-        return this.http.get<User[]>('/api/account/users', this.httpOptions)
-            .map(
-            data => {
-                console.log(data);
-                return data;
-            });
-    }
+    //    // get users from api
+    //    return this.http.get<User[]>('/api/account/users', this.httpOptions)
+    //        .map(
+    //        data => {
+    //            console.log(data);
+    //            return data;
+    //        });
+    //}
 }
