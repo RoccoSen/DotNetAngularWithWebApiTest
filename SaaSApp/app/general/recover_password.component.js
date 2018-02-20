@@ -14,15 +14,21 @@ var index_1 = require("../services/index");
 var RecoverPasswordComponent = /** @class */ (function () {
     function RecoverPasswordComponent(authenticationService) {
         this.authenticationService = authenticationService;
-        this.username = "";
         this.error = "";
         this.isConfirmEmailSent = false;
         this.loading = false;
     }
-    RecoverPasswordComponent.prototype.recover = function () {
+    RecoverPasswordComponent.prototype.recover = function (frm) {
         var _this = this;
+        if (frm.invalid)
+            return;
+        this.error = "";
+        if (null == frm.value.email || "" == frm.value.email) {
+            this.error = "Please enter your e-mail";
+            return;
+        }
         this.loading = true;
-        this.authenticationService.changePasswordRequest(this.username)
+        this.authenticationService.changePasswordRequest(frm.value.email)
             .subscribe(function (result) {
             if (result === true) {
                 _this.isConfirmEmailSent = true;
